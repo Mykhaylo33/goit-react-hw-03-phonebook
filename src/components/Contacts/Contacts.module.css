@@ -1,0 +1,10 @@
+.container {
+  width: 340px;
+  margin-left: 0;
+  border: 1px solid black;
+
+}
+
+.contactList {
+  padding: 0;
+}

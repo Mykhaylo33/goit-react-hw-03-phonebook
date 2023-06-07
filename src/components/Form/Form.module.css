@@ -1,0 +1,17 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  width: 340px;
+  padding-bottom: 8px;
+}
+
+.formLabel {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.formParagraph {
+  margin: 4px 0;
+}

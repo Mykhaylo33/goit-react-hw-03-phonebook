@@ -1,0 +1,15 @@
+.listItem {
+  display: flex;
+  font-size: 20px;
+  margin: 8px 0;
+}
+
+.button {
+  display: inline-block;
+  margin-left: auto;
+  vertical-align: baseline;
+  padding-top: 2px;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
