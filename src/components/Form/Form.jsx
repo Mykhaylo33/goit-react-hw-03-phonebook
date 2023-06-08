@@ -1,7 +1,6 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import css from './Form.module.css';
-import PropTypes from 'prop-types';
 
 export class Form extends Component {
   state = {
@@ -9,7 +8,7 @@ export class Form extends Component {
     number: '',
   };
 
-  handlerSubmit = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { addUser } = this.props;
     const { name, number } = this.state;
@@ -18,21 +17,16 @@ export class Form extends Component {
     this.setState({ name: '', number: '' });
   };
 
-  handlerChange = (e) => {
+  handleChange = (e) => {
     const { name, value } = e.currentTarget;
     this.setState({ [name]: value });
-  };
-
-  handlerChangeNumber = (e) => {
-    const { value } = e.currentTarget;
-    this.setState({ number: value });
   };
 
   render() {
     const { name, number } = this.state;
 
     return (
-      <form onSubmit={this.handlerSubmit} className={css.form}>
+      <form onSubmit={this.handleSubmit} className={css.form}>
         <label className={css.formLabel}>
           <p className={css.formParagraph}>Name:</p>
           <input
@@ -40,7 +34,7 @@ export class Form extends Component {
             name="name"
             required
             value={name}
-            onChange={this.handlerChange}
+            onChange={this.handleChange}
           />
         </label>
         <label className={css.formLabel}>
@@ -50,7 +44,7 @@ export class Form extends Component {
             name="number"
             required
             value={number}
-            onChange={this.handlerChange}
+            onChange={this.handleChange}
           />
         </label>
 
@@ -59,7 +53,3 @@ export class Form extends Component {
     );
   }
 }
-
-Form.propTypes = {
-  addUser: PropTypes.func.isRequired,
-};

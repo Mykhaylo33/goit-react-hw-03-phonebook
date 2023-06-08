@@ -11,16 +11,19 @@ export class App extends Component {
   };
 
   componentDidMount() {
-    const storedContacts = localStorage.getItem('contacts');
-    if (storedContacts) {
-      this.setState({ contacts: JSON.parse(storedContacts) });
+    const { contacts } = localStorage;
+
+    if (contacts) {
+      this.setState({ contacts: JSON.parse(contacts) });
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.contacts !== this.state.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
+    const { contacts } = this.state;
+
+  if (prevState.contacts !== contacts) {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }
   }
 
   addUser = newItem => {
@@ -34,8 +37,8 @@ export class App extends Component {
       return;
     }
 
-    this.setState(prevState => {
-      return { contacts: [...prevState.contacts, newItem] };
+    this.setState(prev => {
+      return { contacts: [...prev.contacts, newItem] };
     });
   };
 
@@ -55,9 +58,9 @@ export class App extends Component {
   };
 
   deleteHandler = id => {
-    this.setState(prevState => {
+    this.setState(({ contacts }) => {
       return {
-        contacts: prevState.contacts.filter(item => item.id !== id),
+        contacts: contacts.filter(item => item.id !== id),
       };
     });
   };
@@ -75,7 +78,7 @@ export class App extends Component {
         }}
       >
         <h1 className={css.title}>Phonebook</h1>
-        <Form addUser={this.addUser} />
+        <Form addUser={this.addUser}></Form>
         <h2 className={css.title}>Contacts</h2>
         <Filter
           inputHandler={this.inputHandler}
@@ -89,5 +92,3 @@ export class App extends Component {
     );
   }
 }
-
-export default App;
