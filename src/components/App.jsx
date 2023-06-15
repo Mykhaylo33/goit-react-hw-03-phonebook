@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Form } from './Form/Form';
 import { Contacts } from './Contacts/Contacts';
 import { Filter } from './Filter/Filter';
 import css from './App.module.css';
+
+const LS_KEY = 'phonebook';
 
 export class App extends Component {
   state = {
@@ -16,15 +18,14 @@ export class App extends Component {
   };
 
   componentDidMount() {
-    const LS_KEY = 'phonebook';
     if (localStorage.getItem(LS_KEY) !== null) {
+      // localStorage.removeItem(LS_KEY);
       const savedState = JSON.parse(localStorage.getItem(LS_KEY));
       this.setState({ contacts: savedState });
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const LS_KEY = 'phonebook';
     if (prevState.contacts !== this.state.contacts) {
       localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts));
     }
@@ -37,7 +38,7 @@ export class App extends Component {
     );
 
     if (decisionForAdd) {
-      alert(`${decisionForAdd.name} is already in contacts!`);
+      alert(`${decisionForAdd.name} is already in contacts !`);
       return;
     }
 
@@ -78,6 +79,7 @@ export class App extends Component {
           height: '100vh',
           display: 'flex',
           flexDirection: 'column',
+          // justifyContent: 'center',
           alignItems: 'center',
           fontSize: 40,
           color: '#010101',
@@ -98,5 +100,3 @@ export class App extends Component {
     );
   }
 }
-
-export default App;
