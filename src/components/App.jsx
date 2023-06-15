@@ -6,24 +6,28 @@ import css from './App.module.css';
 
 export class App extends Component {
   state = {
-    contacts: [],
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
     filter: '',
   };
 
   componentDidMount() {
-    const { contacts } = localStorage;
-
-    if (contacts) {
-      this.setState({ contacts: JSON.parse(contacts) });
+    const LS_KEY = 'phonebook';
+    if (localStorage.getItem(LS_KEY) !== null) {
+      const savedState = JSON.parse(localStorage.getItem(LS_KEY));
+      this.setState({ contacts: savedState });
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { contacts } = this.state;
-
-  if (prevState.contacts !== contacts) {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }
+    const LS_KEY = 'phonebook';
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts));
+    }
   }
 
   addUser = newItem => {
@@ -43,7 +47,7 @@ export class App extends Component {
   };
 
   filterByName = () => {
-    const { filter, contacts } = this.state;
+    const { contacts, filter } = this.state;
     const lowName = filter.toLowerCase();
     return contacts.filter(item => item.name.toLowerCase().includes(lowName));
   };
@@ -58,9 +62,11 @@ export class App extends Component {
   };
 
   deleteHandler = id => {
+    const queryIndex = this.state.contacts.findIndex(item => item.id === id);
+
     this.setState(({ contacts }) => {
       return {
-        contacts: contacts.filter(item => item.id !== id),
+        contacts: [...contacts].filter((item, index) => index !== queryIndex),
       };
     });
   };
@@ -92,3 +98,5 @@ export class App extends Component {
     );
   }
 }
+
+export default App;

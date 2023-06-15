@@ -8,7 +8,7 @@ export class Filter extends Component {
 
     return (
       <label className={css.label}>
-        <p className={css.paragraph}>Find contacts by name:</p>
+        <p className={css.paragraph}>Filter by Name:</p>
         <input type="text" onChange={inputHandler} value={inputValue}></input>
       </label>
     );
